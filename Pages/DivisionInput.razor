@@ -1,0 +1,64 @@
+@page "/division-input"
+@inject IAppState State
+@inject NavigationManager NavManager
+
+<PageTitle>Division Input</PageTitle>
+
+<h2>Divison Input</h2>
+
+<EditForm Model="@divisionData" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-row">
+        <div class="form-group mb-3 col-sm-6 col-md-3">
+            <label for="dividend" class="form-label">Dividend</label>
+            <InputNumber id="dividend" class="form-control" @bind-Value="divisionData.Dividend" @onblur="FieldOnBlur" />
+        </div>
+        <div class="form-group mb-3 col-sm-6 col-md-3">
+            <label for="divisor" class="form-label">Divisor</label>
+            <InputNumber id="divisor" class="form-control" @bind-Value="divisionData.Divisor" @onblur="FieldOnBlur" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group mb-3 col-sm-6 col-md-3">
+            <label for="decimal_digits" class="form-label">Number of Decimal Places</label>
+            <InputSelect id="decimal_digits" class="form-control" @bind-Value="divisionData.DecimalDigits" @onblur="FieldOnBlur">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </InputSelect>
+        </div>
+    </div>
+    <div class="row pt-3 pb-3">
+        <div class="col-sm-6 col-md-3">
+            <button class="btn btn-primary btn-lg" type="submit">CALC</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private DivisionData divisionData = new();
+
+    protected override void OnInitialized()
+    {
+        divisionData.Dividend = State.Dividend;
+        divisionData.Divisor = State.Divisor;
+        divisionData.DecimalDigits = State.DecimalDigits;
+    }
+
+    private void FieldOnBlur()
+    {
+        State.Dividend = divisionData.Dividend;
+        State.Divisor = divisionData.Divisor;
+        State.DecimalDigits = divisionData.DecimalDigits;
+        State.NeedCalc = true;
+    }   
+
+    private void SubmitForm()
+    {
+        NavManager.NavigateTo("../result");
+    }
+}
