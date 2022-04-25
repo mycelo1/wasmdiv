@@ -2,6 +2,7 @@ namespace wasmdiv.Interfaces;
 
 public interface IAppState
 {
+    string? BaseUrl { get; set; }
     double Dividend { get; set; }
     double Divisor { get; set; }
     int DecimalDigits { get; set; }

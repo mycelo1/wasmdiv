@@ -1,6 +1,6 @@
 @page "/division-input"
 @inject IAppState State
-@inject NavigationManager NavManager
+@inject NavigationManager Manager
 
 <PageTitle>Division Input</PageTitle>
 
@@ -12,11 +12,11 @@
     <div class="form-row">
         <div class="form-group mb-3 col-sm-6 col-md-3">
             <label for="dividend" class="form-label">Dividend</label>
-            <InputNumber id="dividend" class="form-control" @bind-Value="divisionData.Dividend" @onblur="FieldOnBlur" />
+            <InputNumber id="dividend" class="form-control" onClick="this.select();" @bind-Value="divisionData.Dividend" @onblur="FieldOnBlur" />
         </div>
         <div class="form-group mb-3 col-sm-6 col-md-3">
             <label for="divisor" class="form-label">Divisor</label>
-            <InputNumber id="divisor" class="form-control" @bind-Value="divisionData.Divisor" @onblur="FieldOnBlur" />
+            <InputNumber id="divisor" class="form-control" onClick="this.select();" @bind-Value="divisionData.Divisor" @onblur="FieldOnBlur" />
         </div>
     </div>
     <div class="form-row">
@@ -55,10 +55,10 @@
         State.Divisor = divisionData.Divisor;
         State.DecimalDigits = divisionData.DecimalDigits;
         State.NeedCalc = true;
-    }   
+    }
 
     private void SubmitForm()
     {
-        NavManager.NavigateTo("../result");
+        Manager.NavigateTo($"{State.BaseUrl}/result");
     }
 }

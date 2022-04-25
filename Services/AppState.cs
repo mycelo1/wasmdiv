@@ -5,6 +5,7 @@ namespace wasmdiv.Services;
 
 public class AppState : IAppState
 {
+    public string? BaseUrl { get; set; }
     public double Dividend { get; set; } = 10;
     public double Divisor { get; set; } = 10;
     public int DecimalDigits { get; set; } = 2;
@@ -16,10 +17,6 @@ public class AppState : IAppState
     {
         var resultText = new StringBuilder();
         char decimalChar = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-
-        resultText.AppendLine();
-        resultText.AppendLine($"divide {Dividend} per {Divisor} with {DecimalDigits} decimal places");
-        resultText.AppendLine();
 
         double useDividend = Dividend;
         double currentDivisor = Divisor;
@@ -36,14 +33,6 @@ public class AppState : IAppState
 
         long useDivisor = Convert.ToInt64(Math.Round(currentDivisor));
         useDividend = Math.Round(useDividend, DecimalDigits);
-
-        if (divisorDigitsAfterPoint > 0)
-        {
-            resultText.AppendLine($"the divisor has {divisorDigitsAfterPoint} decimal places");
-            resultText.AppendLine($"multiply dividend and divisor per {parallelFactor}");
-            resultText.AppendLine($"therefore divide {useDividend} per {useDivisor:F0}");
-            resultText.AppendLine();
-        }
 
         long effectiveDividend = Convert.ToInt64(Math.Round(useDividend * Math.Pow(10, DecimalDigits)));
         string dividendText = effectiveDividend.ToString();

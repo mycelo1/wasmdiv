@@ -1,11 +1,18 @@
 @page "/result"
 @inject IAppState State
+@inject NavigationManager Manager
 
 <PageTitle>Result</PageTitle>
 
 <h2>Result</h2>
 
 <div style="white-space: pre-wrap; font-family: monospace, monospace;">@ResultText</div>
+
+<div class="row pt-3 pb-3">
+    <div class="col-sm-6 col-md-3">
+        <button class="btn btn-secondary btn-lg" type="submit" @onclick="BackClick">BACK</button>
+    </div>
+</div>
 
 @code {
     private string? ResultText;
@@ -17,5 +24,10 @@
             State.Calc();
             ResultText = State.Result;
         }
-    }   
+    }
+
+    private void BackClick()
+    {
+        Manager.NavigateTo($"{State.BaseUrl}/division-input");
+    }
 }

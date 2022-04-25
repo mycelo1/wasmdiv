@@ -1,9 +1,11 @@
 ﻿@page "/"
-@inject NavigationManager NavManager
+@inject IAppState State
+@inject NavigationManager Manager
 
 @code {
     protected override void OnInitialized()
     {
-        NavManager.NavigateTo("./division-input");
+        State.BaseUrl = Manager.ToAbsoluteUri(Manager.BaseUri).ToString().TrimEnd('/');
+        Manager.NavigateTo($"{State.BaseUrl}/division-input");
     }
 }
