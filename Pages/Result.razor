@@ -6,11 +6,15 @@
 
 <h2>Result</h2>
 
-<div style="white-space: pre-wrap; font-family: monospace, monospace;">@ResultText</div>
+<div style="overflow-x: auto;">
+    <div class="result-box">@ResultText</div>
+</div>
 
-<div class="row pt-3 pb-3">
-    <div class="col-sm-6 col-md-3">
-        <button class="btn btn-secondary btn-lg" type="submit" @onclick="BackClick">BACK</button>
+<div class="m-4">
+    <div class="row align-items-center g-3">
+        <div class="col-lg-3 col-12 d-grid">
+            <button class="btn btn-secondary btn-lg" type="submit" @onclick="BackClick">BACK</button>
+        </div>
     </div>
 </div>
 
@@ -19,7 +23,11 @@
 
     protected override void OnInitialized()
     {
-        if (State.NeedCalc)
+        if ((State.Dividend == null) || (State.Divisor == null))
+        {
+            BackClick();
+        }
+        else if (State.NeedCalc)
         {
             State.Calc();
             ResultText = State.Result;
