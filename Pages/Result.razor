@@ -23,6 +23,7 @@
 
     protected override void OnInitialized()
     {
+        State.RefreshRequest += StateHasChanged;
         if ((State.Dividend == null) || (State.Divisor == null))
         {
             BackClick();
